@@ -5,6 +5,7 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
   use Mix.Task
 
+  @impl Mix.Task
   def run(_args) do
     config = [
       args: ~w(),
@@ -14,7 +15,7 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
     Application.put_env(:bun, :spellweaver, config)
 
-    Application.get_all_env(:bun) |> IO.inspect()
+    :ok = Bun.install()
 
     with 0 <- Bun.run(:spellweaver, ~w(add cspell)),
          0 <- Bun.run(:spellweaver, ~w(run cspell . --quiet)) do

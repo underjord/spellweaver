@@ -13,7 +13,11 @@ defmodule Spellweaver.MixProject do
       description: "TODO: write a proper description",
       docs: docs(),
       package: package(),
-      aliases: aliases()
+      aliases: aliases(),
+      dialyzer: [
+        plt_add_apps: [:mix, :igniter],
+        ignore_warnings: ".dialyzer_ignore.exs"
+      ]
     ]
   end
 
@@ -45,7 +49,8 @@ defmodule Spellweaver.MixProject do
         "compile --warnings-as-errors --force",
         "format --check-formatted",
         "credo",
-        "dialyzer"
+        "dialyzer",
+        "spellweaver.check"
       ]
     ]
   end

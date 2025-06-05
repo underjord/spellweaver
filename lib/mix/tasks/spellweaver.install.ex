@@ -2,31 +2,25 @@ defmodule Mix.Tasks.Spellweaver.Install.Docs do
   @moduledoc false
 
   @spec short_doc() :: String.t()
-  def short_doc do
-    "A short description of your task"
+  def short_doc() do
+    "Install Spellweaver with default .cspell.json configuration"
   end
 
   @spec example() :: String.t()
-  def example do
-    "mix spellweaver.install --example arg"
+  def example() do
+    "mix spellweaver.install"
   end
 
   @spec long_doc() :: String.t()
-  def long_doc do
+  def long_doc() do
     """
     #{short_doc()}
-
-    Longer explanation of your task
 
     ## Example
 
     ```sh
     #{example()}
     ```
-
-    ## Options
-
-    * `--example-option` or `-e` - Docs for your option
     """
   end
 end
@@ -73,9 +67,14 @@ if Code.ensure_loaded?(Igniter) do
 
     @impl Igniter.Mix.Task
     def igniter(igniter) do
-      # Do your work here and return an updated igniter
+      cspell_config =
+        :spellweaver
+        |> :code.priv_dir()
+        |> Path.join(".cspell.json")
+        |> File.read!()
+
       igniter
-      |> Igniter.add_warning("mix spellweaver.install is not yet implemented")
+      |> Igniter.create_new_file(".cspell.json", cspell_config)
     end
   end
 else
