@@ -1,8 +1,8 @@
-defmodule SpellriderTest do
+defmodule SpellweaverTest do
   use ExUnit.Case
-  doctest Spellrider
+  doctest Spellweaver
 
   test "greets the world" do
-    assert Spellrider.hello() == :world
+    assert Spellweaver.hello() == :world
   end
 end

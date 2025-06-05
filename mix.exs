@@ -1,15 +1,15 @@
-defmodule Spellrider.MixProject do
+defmodule Spellweaver.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :spellrider,
+      app: :spellweaver,
       version: "0.1.0",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :dev,
       deps: deps(),
-      name: "Spellrider",
+      name: "Spellweaver",
       description: "TODO: write a proper description",
       docs: docs(),
       package: package(),
@@ -26,16 +26,16 @@ defmodule Spellrider.MixProject do
 
   def docs do
     [
-      main: readme,
+      main: "readme",
       extras: ["README.md"]
     ]
   end
 
   def package do
     [
-      name: :spellrider,
+      name: :spellweaver,
       licenses: ["Apache-2.0"],
-      links: %{"GitHub" => "https://github.com/TODO/spellrider"}
+      links: %{"GitHub" => "https://github.com/TODO/spellweaver"}
     ]
   end
 
@@ -53,11 +53,11 @@ defmodule Spellrider.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:deno_rider, "~> 0.2"},
-      {:igniter, "~> 0.6", only: [:dev, :test]},
-      {:ex_doc, "~> 0.31"},
-      {:dialyxir, "~> 1.0"},
-      {:credo, "~> 1.7"}
+      {:bun, "~> 1.0"},
+      {:igniter, "~> 0.6", only: [:dev, :test], runtime: false},
+      {:ex_doc, "~> 0.31", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
+      {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"}
     ]
