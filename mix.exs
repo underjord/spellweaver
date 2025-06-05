@@ -46,11 +46,13 @@ defmodule Spellweaver.MixProject do
   def aliases do
     [
       check: [
+        "hex.audit",
         "compile --warnings-as-errors --force",
         "format --check-formatted",
         "credo",
-        "dialyzer",
-        "spellweaver.check"
+        "deps.unlock --check-unused",
+        "spellweaver.check",
+        "dialyzer"
       ]
     ]
   end
