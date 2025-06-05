@@ -24,6 +24,4 @@ spellweaver-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
-node_modules
-package.json
-bun.lock
+priv/bun
