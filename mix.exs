@@ -10,7 +10,7 @@ defmodule Spellweaver.MixProject do
       consolidate_protocols: Mix.env() != :dev,
       deps: deps(),
       name: "Spellweaver",
-      description: "TODO: write a proper description",
+      description: "A spellchecker for Elixir, made with Bun and cspell",
       docs: docs(),
       package: package(),
       aliases: aliases(),
@@ -39,7 +39,7 @@ defmodule Spellweaver.MixProject do
     [
       name: :spellweaver,
       licenses: ["Apache-2.0"],
-      links: %{"GitHub" => "https://github.com/TODO/spellweaver"}
+      links: %{"GitHub" => "https://github.com/underjord/spellweaver"}
     ]
   end
 
