@@ -1,11 +1,20 @@
 # Spellweaver
 
-**TODO: Add description**
+An Elixir-wrapped spell checker for code.
+
+This library takes Bun as a runtime, downloads cspell and uses it to check the
+spelling in your Elixir code. Intended for CI usage.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `spellweaver` to your list of dependencies in `mix.exs`:
+Install using igniter to also get offered a default `.cspell.json` config:
+
+```sh
+mix archive.install hex igniter_new
+mix igniter.install spellweaver
+```
+
+Or manually by adding `spellweaver` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -14,7 +23,3 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/spellweaver>.

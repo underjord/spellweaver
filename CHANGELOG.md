@@ -2,4 +2,4 @@
 
 ## v0.1.0
 
-- TODO: write changelog
+Initial release. Includes an igniter installer to provide a default `.cspell.json` config.
