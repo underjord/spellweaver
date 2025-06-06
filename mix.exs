@@ -4,7 +4,7 @@ defmodule Spellweaver.MixProject do
   def project do
     [
       app: :spellweaver,
-      version: "0.1.3",
+      version: "0.1.4",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :dev,
@@ -60,6 +60,7 @@ defmodule Spellweaver.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
+      {:jason, "~> 1.0", optional: true},
       {:bun, "~> 1.0"},
       {:igniter, "~> 0.6", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.31", only: [:dev, :test], runtime: false},

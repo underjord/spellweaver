@@ -6,7 +6,7 @@ defmodule Mix.Tasks.Spellweaver.Check do
   use Mix.Task
 
   @impl Mix.Task
-  def run(_args) do
+  def run(args) do
     config = [
       args: ~w(),
       cd: Path.expand("."),
@@ -23,20 +23,70 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
     File.mkdir_p(working_dir)
 
-    current_dir = File.cwd!()
+    {target_dir, args} =
+      case args do
+        [] ->
+          {File.cwd!(), []}
 
-    cspell_path =
-      working_dir
-      |> Path.join("node_modules/cspell/dist/esm/app.mjs")
+        [target_dir | args] ->
+          {target_dir, args}
+      end
+
+    cspell_args =
+      ~w(--bun --cwd=#{working_dir} cspell) ++
+        ~w(-r #{target_dir}) ++
+        args ++
+        [target_dir]
 
     with 0 <- add(~w(cspell --cwd=#{working_dir})),
-         0 <- run_(~w(#{cspell_path} #{current_dir} --quiet --cwd=#{working_dir})) do
-      Mix.shell().info("Spellcheck passed.")
+         :ok <- create_script(working_dir),
+         # Options are found here, both docs and --help are lying
+         # https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#options
+         0 <-
+           run_(cspell_args) do
+      halt(0, "Spellcheck passed.")
     else
       status ->
-        Mix.shell().error("Spellcheck failed.")
-        System.halt(status)
+        halt(status, "Spellcheck failed.")
     end
+  end
+
+  defp halt(status, message) do
+    if Process.get(:fake_halt, false) do
+      {status, message}
+    else
+      if status == 0 do
+        Mix.shell().info(message)
+      else
+        Mix.shell().error(message)
+      end
+
+      System.halt(status)
+    end
+  end
+
+  cond do
+    Code.ensure_loaded?(JSON) ->
+      defdelegate encode!(data), to: JSON
+      defdelegate decode!(data), to: JSON
+
+    Code.ensure_loaded?(Jason) ->
+      defdelegate encode!(data), to: Jason
+      defdelegate decode!(data), to: Jason
+  end
+
+  defp create_script(working_dir) do
+    pkg_path = Path.join(working_dir, "package.json")
+
+    new_pkg =
+      pkg_path
+      |> File.read!()
+      |> decode!()
+      |> Map.put("scripts", %{"spell" => "node cspell"})
+      |> encode!()
+
+    File.write!(pkg_path, new_pkg)
+    :ok
   end
 
   defp add(args) do
