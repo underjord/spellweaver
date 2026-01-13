@@ -23,8 +23,10 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
     File.mkdir_p(working_dir)
 
+    {cspell_version, remaining_args} = extract_cspell_version(args)
+
     {target_dir, args} =
-      case args do
+      case remaining_args do
         [] ->
           {File.cwd!(), []}
 
@@ -38,7 +40,7 @@ defmodule Mix.Tasks.Spellweaver.Check do
         args ++
         [target_dir]
 
-    with 0 <- add(~w(cspell --cwd=#{working_dir})),
+    with 0 <- add(~w(#{cspell_version} --cwd=#{working_dir})),
          :ok <- create_script(working_dir),
          # Options are found here, both docs and --help are lying
          # https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#options
@@ -87,6 +89,18 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
     File.write!(pkg_path, new_pkg)
     :ok
+  end
+
+  defp extract_cspell_version(args) do
+    case OptionParser.parse(args, strict: [cspell_version: :string]) do
+      {[cspell_version: version], remaining_args, _errors} ->
+        {"cspell@#{version}", remaining_args}
+
+      _ ->
+        # We default to 9.4.0 because 9.6.0 is broken at the time of writing
+        # and 9.5.0 was never released.
+        {"cspell@9.4.0", args}
+    end
   end
 
   defp add(args) do

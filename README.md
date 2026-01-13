@@ -23,3 +23,28 @@ def deps do
   ]
 end
 ```
+
+## Usage
+
+Run the spell checker:
+
+```sh
+mix spellweaver.check
+```
+
+### Pinning cspell Version
+
+For CI environments, you can pin a specific cspell version using the `--cspell-version` flag:
+
+```sh
+mix spellweaver.check --cspell-version 9.4.0
+```
+
+This ensures consistent spell checking across builds and prevents breaking changes from new cspell releases.
+
+Example CI configuration (GitHub Actions):
+
+```yaml
+- name: Run spell checker
+  run: mix spellweaver.check --cspell-version 9.4.0
+```
