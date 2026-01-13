@@ -97,7 +97,9 @@ defmodule Mix.Tasks.Spellweaver.Check do
         {"cspell@#{version}", remaining_args}
 
       _ ->
-        {"cspell", args}
+        # We default to 9.4.0 because 9.6.0 is broken at the time of writing
+        # and 9.5.0 was never released.
+        {"cspell@9.4.0", args}
     end
   end
 

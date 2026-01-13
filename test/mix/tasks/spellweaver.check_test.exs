@@ -58,9 +58,9 @@ defmodule Mix.Tasks.Spellweaver.CheckTest do
     # Should work with version flag before directory and install specified version
     output =
       capture_io(fn ->
-        Mix.Tasks.Spellweaver.Check.run(["--cspell-version", "9.4.0", dir])
+        Mix.Tasks.Spellweaver.Check.run(["--cspell-version", "9.2.0", dir])
       end)
 
-    assert output =~ "installed cspell@9.4.0"
+    assert output =~ "installed cspell@9.2.0"
   end
 end
