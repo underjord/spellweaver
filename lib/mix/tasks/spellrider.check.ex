@@ -23,8 +23,10 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
     File.mkdir_p(working_dir)
 
+    {cspell_version, remaining_args} = extract_cspell_version(args)
+
     {target_dir, args} =
-      case args do
+      case remaining_args do
         [] ->
           {File.cwd!(), []}
 
@@ -38,7 +40,7 @@ defmodule Mix.Tasks.Spellweaver.Check do
         args ++
         [target_dir]
 
-    with 0 <- add(~w(cspell --cwd=#{working_dir})),
+    with 0 <- add(~w(#{cspell_version} --cwd=#{working_dir})),
          :ok <- create_script(working_dir),
          # Options are found here, both docs and --help are lying
          # https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#options
@@ -87,6 +89,19 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
     File.write!(pkg_path, new_pkg)
     :ok
+  end
+
+  defp extract_cspell_version(args) do
+    case Enum.find_index(args, &(&1 == "--cspell-version")) do
+      nil ->
+        {"cspell", args}
+
+      index ->
+        version = Enum.at(args, index + 1)
+        remaining_args = args |> List.delete_at(index) |> List.delete_at(index)
+
+        {"cspell@#{version}", remaining_args}
+    end
   end
 
   defp add(args) do
