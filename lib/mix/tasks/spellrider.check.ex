@@ -92,15 +92,12 @@ defmodule Mix.Tasks.Spellweaver.Check do
   end
 
   defp extract_cspell_version(args) do
-    case Enum.find_index(args, &(&1 == "--cspell-version")) do
-      nil ->
-        {"cspell", args}
-
-      index ->
-        version = Enum.at(args, index + 1)
-        remaining_args = args |> List.delete_at(index) |> List.delete_at(index)
-
+    case OptionParser.parse(args, strict: [cspell_version: :string]) do
+      {[cspell_version: version], remaining_args, _errors} ->
         {"cspell@#{version}", remaining_args}
+
+      _ ->
+        {"cspell", args}
     end
   end
 
