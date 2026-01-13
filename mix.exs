@@ -4,7 +4,7 @@ defmodule Spellweaver.MixProject do
   def project do
     [
       app: :spellweaver,
-      version: "0.1.4",
+      version: "0.1.5",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :dev,
