@@ -30,6 +30,7 @@
     "oban",
     "postgrex",
     "rebar",
+    "spellrider",
     "spellweaver",
     "tzdata"
   ]
