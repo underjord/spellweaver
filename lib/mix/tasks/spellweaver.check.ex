@@ -15,8 +15,6 @@ defmodule Mix.Tasks.Spellweaver.Check do
 
     Application.put_env(:bun, :spellweaver, config)
 
-    :ok = Bun.install()
-
     working_dir =
       :code.priv_dir(:spellweaver)
       |> Path.join("bun")
@@ -112,6 +110,6 @@ defmodule Mix.Tasks.Spellweaver.Check do
   end
 
   defp bun(command, args) do
-    Bun.run(:spellweaver, [command | args])
+    Bun.install_and_run(:spellweaver, [command | args])
   end
 end
