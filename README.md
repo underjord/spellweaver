@@ -19,7 +19,7 @@ Or manually by adding `spellweaver` to your list of dependencies in `mix.exs`:
 ```elixir
 def deps do
   [
-    {:spellweaver, "~> 0.1.0"}
+    {:spellweaver, "~> 0.1.0", runtime: false}
   ]
 end
 ```

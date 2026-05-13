@@ -1,6 +1,22 @@
 # Changelog
 
-## v0.1.7
+## v0.1.8
+
+- Include `priv/bun/package.json` in the published hex package so
+  `spellweaver.check` can read and update it on first run. v0.1.7's package
+  files were too restrictive and broke this.
+- Make `igniter` an `optional: true` dep instead of `only: [:dev, :test]`.
+  This lets the `Mix.Tasks.Spellweaver.Install` installer compile properly
+  when spellweaver is consumed as a dep in projects that have igniter, so
+  `mix igniter.install spellweaver` works.
+- The igniter installer now adds spellweaver to the consumer's `mix.exs`
+  with `runtime: false` via `dep_opts`.
+- Document `runtime: false` in the manual install snippet in the README.
+- Add an integration test that runs `mix igniter.new --install spellweaver`
+  end-to-end and verifies `mix spellweaver.check` works in the generated
+  project.
+
+## v0.1.7 (retired)
 
 - `spellweaver.check` no longer calls `System.halt/1`. It returns `:ok` on
   success and raises `Mix.Error` on failure, so it can be chained inside

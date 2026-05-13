@@ -4,7 +4,7 @@ defmodule Spellweaver.MixProject do
   def project do
     [
       app: :spellweaver,
-      version: "0.1.7",
+      version: "0.1.8",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :dev,
@@ -39,7 +39,7 @@ defmodule Spellweaver.MixProject do
     [
       name: :spellweaver,
       licenses: ["Apache-2.0"],
-      files: ~w(lib priv/.cspell.json mix.exs README* LICENSE* CHANGELOG*),
+      files: ~w(lib priv/.cspell.json priv/bun/package.json mix.exs README* LICENSE* CHANGELOG*),
       links: %{"GitHub" => "https://github.com/underjord/spellweaver"}
     ]
   end
@@ -63,7 +63,7 @@ defmodule Spellweaver.MixProject do
     [
       {:jason, "~> 1.0", optional: true},
       {:bun, "~> 1.0"},
-      {:igniter, "~> 0.6", only: [:dev, :test], runtime: false},
+      {:igniter, "~> 0.6", optional: true},
       {:ex_doc, "~> 0.31", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.0", only: [:dev, :test], runtime: false},
       {:credo, "~> 1.7", only: [:dev, :test], runtime: false}
