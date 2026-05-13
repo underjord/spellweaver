@@ -1,11 +1,13 @@
 # Changelog
 
-## v0.1.6
+## v0.1.7
 
-`spellweaver.check` no longer calls `System.halt/1`. It returns `:ok` on
-success and raises `Mix.Error` on failure, so it can be chained inside
-multi-step aliases like nstandard's `check` without silently skipping
-subsequent steps (e.g. `dialyzer`).
+- `spellweaver.check` no longer calls `System.halt/1`. It returns `:ok` on
+  success and raises `Mix.Error` on failure, so it can be chained inside
+  multi-step aliases like nstandard's `check` without silently skipping
+  subsequent steps (e.g. `dialyzer`).
+- Restrict the published hex package to `priv/.cspell.json` so locally
+  installed `priv/bun` artifacts don't get bundled into releases.
 
 ## v0.1.5
 

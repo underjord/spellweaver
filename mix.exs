@@ -4,7 +4,7 @@ defmodule Spellweaver.MixProject do
   def project do
     [
       app: :spellweaver,
-      version: "0.1.6",
+      version: "0.1.7",
       elixir: "~> 1.17",
       start_permanent: Mix.env() == :prod,
       consolidate_protocols: Mix.env() != :dev,
@@ -39,6 +39,7 @@ defmodule Spellweaver.MixProject do
     [
       name: :spellweaver,
       licenses: ["Apache-2.0"],
+      files: ~w(lib priv/.cspell.json mix.exs README* LICENSE* CHANGELOG*),
       links: %{"GitHub" => "https://github.com/underjord/spellweaver"}
     ]
   end
