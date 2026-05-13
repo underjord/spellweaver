@@ -44,24 +44,11 @@ defmodule Mix.Tasks.Spellweaver.Check do
          # https://github.com/streetsidesoftware/cspell/tree/main/packages/cspell#options
          0 <-
            run_(cspell_args) do
-      halt(0, "Spellcheck passed.")
+      Mix.shell().info("Spellcheck passed.")
+      :ok
     else
-      status ->
-        halt(status, "Spellcheck failed.")
-    end
-  end
-
-  defp halt(status, message) do
-    if Process.get(:fake_halt, false) do
-      {status, message}
-    else
-      if status == 0 do
-        Mix.shell().info(message)
-      else
-        Mix.shell().error(message)
-      end
-
-      System.halt(status)
+      _status ->
+        Mix.raise("Spellcheck failed.")
     end
   end
 

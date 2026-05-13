@@ -1,5 +1,12 @@
 # Changelog
 
+## v0.1.6
+
+`spellweaver.check` no longer calls `System.halt/1`. It returns `:ok` on
+success and raises `Mix.Error` on failure, so it can be chained inside
+multi-step aliases like nstandard's `check` without silently skipping
+subsequent steps (e.g. `dialyzer`).
+
 ## v0.1.5
 
 - Add argument for setting the cspell version.
